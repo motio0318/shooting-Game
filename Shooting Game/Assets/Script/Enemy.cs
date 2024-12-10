@@ -1,59 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
-    [SerializeField, Header("移動速度")]
-    private float speed;
-
     [SerializeField, Header("弾オブジェクト")]
     private GameObject bullet;
 
     [SerializeField, Header("弾を発射する時間")]
     private float shootTime;
+
     [SerializeField, Header("体力")]
     private int hp;
 
 
-    private Vector2 inputVelocity;
-    private Rigidbody2D rigid;
+    private GameObject player;
     private float shootCount;
 
     // Start is called before the first frame update
     void Start()
     {
-        inputVelocity = Vector2.zero;
-        rigid = GetComponent<Rigidbody2D>();
+        player = FindObjectOfType<Player>().gameObject;
         shootCount = 0;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
         Shooting();
     }
-    private void Move()
-    {
-        rigid.velocity = inputVelocity * speed;
-    }
+
+
+    //parat5最後ちょっとだけ
 
     private void Shooting()
     {
+        if (player == null) return;
+
         shootCount += Time.deltaTime;
         if (shootCount < shootTime) return;
 
         GameObject bulletObj = Instantiate(bullet);
-        bulletObj.transform.position = transform.position + new Vector3(0f, transform.lossyScale.y / 2.0f, 0f);
+        bulletObj.transform.position = transform.position;
+        Vector3 dir = player.transform.position - transform.position;
+        bulletObj.transform.rotation = Quaternion.FromToRotation(transform.up, dir);
         shootCount = 0.0f;
-    }
 
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.tag == "Bullet")
         {
             hp -= 1;
             if (hp <= 0)
@@ -62,11 +58,6 @@ public class Player : MonoBehaviour
             }
 
         }
-    }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        inputVelocity = context.ReadValue<Vector2>();
     }
 
 }
