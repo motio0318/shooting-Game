@@ -16,6 +16,7 @@ public class HpIcon : MonoBehaviour
         player = FindObjectOfType<Player>();
         beforHP = player.GetHP();
         hpIconList = new List<GameObject>();
+        CreateHPIcon();
     }
 
     private void CreateHPIcon()
@@ -31,6 +32,18 @@ public class HpIcon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ShowHPIcon();
+    }
+
+    private void ShowHPIcon()
+    {
+        if (beforHP == player.GetHP()) return;
+        
+        for(int i = 0; i < hpIconList.Count;i++)
+        {
+           hpIconList[i].SetActive(i < player.GetHP());
+        }
+        beforHP = player.GetHP();
         
     }
 }
