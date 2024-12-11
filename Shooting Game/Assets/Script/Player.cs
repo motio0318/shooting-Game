@@ -69,4 +69,9 @@ public class Player : MonoBehaviour
         inputVelocity = context.ReadValue<Vector2>();
     }
 
+    public int GetHP()
+    {
+        return hp;
+    }
+
 }
