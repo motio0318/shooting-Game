@@ -17,7 +17,7 @@ public class BulletEnemy : Enemy
         shootCount += Time.deltaTime;
         if (shootCount < shootTime) return;
 
-        GameObject bulletObj = Instantiate(bullet[0]);
+        GameObject bulletObj = Instantiate(bullets[0]);
         bulletObj.transform.position = transform.position;
         Vector3 dir = player.transform.position - transform.position;
         bulletObj.transform.rotation = Quaternion.FromToRotation(transform.up, dir);

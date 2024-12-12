@@ -635,7 +635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1747937599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -781,6 +781,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -748833958634752892, guid: 7af902d7beaa7084a8789470b5010e31, type: 3}
+      propertyPath: LRRange
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -748833958634752892, guid: 7af902d7beaa7084a8789470b5010e31, type: 3}
+      propertyPath: LRSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -748833958634752892, guid: 7af902d7beaa7084a8789470b5010e31, type: 3}
+      propertyPath: ougiAngle
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: -748833958634752892, guid: 7af902d7beaa7084a8789470b5010e31, type: 3}
+      propertyPath: LRShootTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -748833958634752892, guid: 7af902d7beaa7084a8789470b5010e31, type: 3}
+      propertyPath: LRAttackTime
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -748833958634752892, guid: 7af902d7beaa7084a8789470b5010e31, type: 3}
+      propertyPath: ougiBulletNum
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -748833958634752892, guid: 7af902d7beaa7084a8789470b5010e31, type: 3}
+      propertyPath: ougiAttackCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -748833958634752892, guid: 7af902d7beaa7084a8789470b5010e31, type: 3}
+      propertyPath: bullets.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -748833958634752892, guid: 7af902d7beaa7084a8789470b5010e31, type: 3}
+      propertyPath: bullets.Array.data[0]
+      value: 
+      objectReference: {fileID: 1263264981387481947, guid: b0dc2b8df1721834f956baae39271cc8, type: 3}
+    - target: {fileID: -748833958634752892, guid: 7af902d7beaa7084a8789470b5010e31, type: 3}
+      propertyPath: bullets.Array.data[1]
+      value: 
+      objectReference: {fileID: 5698291296536449382, guid: fe0fc8d84212f6c4aa1599266e87ad8d, type: 3}
+    - target: {fileID: -748833958634752892, guid: 7af902d7beaa7084a8789470b5010e31, type: 3}
+      propertyPath: bullets.Array.data[2]
+      value: 
+      objectReference: {fileID: 6323133117833652531, guid: f678ff704950b2e419a55040e79d20a4, type: 3}
     - target: {fileID: 4139406844014824347, guid: 7af902d7beaa7084a8789470b5010e31, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

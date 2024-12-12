@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField, Header("弾オブジェクト")]
-    protected GameObject[] bullet;
+    protected GameObject[] bullets;
 
     [SerializeField, Header("弾を発射する時間")]
     protected float shootTime;
