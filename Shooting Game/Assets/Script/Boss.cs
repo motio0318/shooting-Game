@@ -30,6 +30,12 @@ public class Boss : Enemy
 
     [SerializeField, Header("ƒWƒOƒUƒO‚Ì‘¬“x")]
     private float LRSpeed;
+    [SerializeField, Header("‰~Œ`‚Ì’e”")]
+    private int circleBulletNum;
+    [SerializeField, Header("‰~Œ`UŒ‚‚ÌŽžŠÔ")]
+    private float circleShootTime;
+    [SerializeField, Header("‰~Œ`‚É’e‚ð”­ŽË‚·‚éŠÔŠu")]
+    private float circleBulletTime;
 
 
     enum AttackMode
@@ -44,6 +50,7 @@ public class Boss : Enemy
     private AttackMode attackMode;
     private float rotateZ;
     private float LRAttackCount;
+    private float circleShootCount;
 
     protected override void Initialize()
     {
@@ -51,6 +58,7 @@ public class Boss : Enemy
         attackMode = AttackMode.Nomal;
         rotateZ = 0f;
         LRAttackCount = 0f;
+        circleShootCount = 0f;
     }
 
     protected override void Move()
@@ -73,7 +81,7 @@ public class Boss : Enemy
             case AttackMode.Nomal: NomalShooting();break;
             case AttackMode.Ougi :OugiShooting(); break;
             case AttackMode.LeftRight:LeftRightShooting(); break;
-            case AttackMode.Circle: break;
+            case AttackMode.Circle:CircleShooting(); break;
         }
     }
 
@@ -156,4 +164,30 @@ public class Boss : Enemy
         shootCount = 0f;
     }
 
+
+    private void CircleShooting()
+    {
+        circleShootCount += Time.deltaTime;
+        if(circleShootCount >= circleShootTime)
+        {
+            shootCount = 0f;
+            circleShootCount= 0f;
+            attackMode = AttackMode.Nomal;
+        }
+
+        shootCount += Time.deltaTime;
+        if (shootCount < circleBulletTime) return;
+
+        for(int i = 0; i < circleBulletNum; i++)
+        {
+            float angleRange = Mathf.Deg2Rad * 360f;
+            float theta = angleRange / circleBulletNum  * i - Mathf.Deg2Rad * (90f + 360f / 2f);
+
+            GameObject bullet = Instantiate(bullets[3]);
+            bullet.transform.position = transform.position;
+            Vector3 dir = transform.position + new Vector3(Mathf.Cos(theta), Mathf.Sin(theta)) - transform.position;
+            bullet.transform.rotation = Quaternion.FromToRotation(transform.up, dir);
+        }
+        shootCount = 0f;
+    }
 }

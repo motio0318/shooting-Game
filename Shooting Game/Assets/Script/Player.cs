@@ -15,18 +15,33 @@ public class Player : MonoBehaviour
     private float shootTime;
     [SerializeField, Header("体力")]
     private int hp;
+    [SerializeField, Header("点滅時間")]
+    private float damageTime;
+    [SerializeField, Header("点滅周期")]
+    private float damageCycle;
+    [SerializeField, Header("死亡エフェクト")]
+    private GameObject deadEffect;
+
 
 
     private Vector2 inputVelocity;
     private Rigidbody2D rigid;
+    private SpriteRenderer spriteRenderer;
+    private GameManager gameManager;
     private float shootCount;
+    private float damageTimeCount;
+    private bool bDamage;
 
     // Start is called before the first frame update
     void Start()
     {
         inputVelocity = Vector2.zero;
         rigid = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        gameManager = FindObjectOfType<GameManager>();
         shootCount = 0;
+        damageTimeCount = 0;
+        bDamage = false;
 
     }
 
@@ -35,6 +50,7 @@ public class Player : MonoBehaviour
     {
         Move();
         Shooting();
+        Damage();
     }
     private void Move()
     {
@@ -55,12 +71,36 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.tag == "Bullet" || collision.gameObject.tag == "Enemy")
         {
-            hp -= 1;
-            if (hp <= 0)
+            if(!bDamage)
             {
-                Destroy(gameObject);
+                hp -= 1;
+                bDamage = true;
+                if (hp <= 0)
+                {
+                    Destroy(gameObject);
+                    Instantiate(deadEffect, transform.position, Quaternion.identity);
+                    gameManager.DeadEffect();
+                }
+
             }
 
+        }
+    }
+     
+    private void Damage()
+    {
+        if (!bDamage) return;
+
+        damageTimeCount += Time.deltaTime;
+
+        float value = Mathf.Repeat(damageTimeCount, damageCycle);
+        spriteRenderer.enabled = value >= damageCycle * 0.5f;
+
+        if(damageTimeCount >= damageTime)
+        {
+            damageTimeCount = 0;
+            spriteRenderer.enabled = true;
+            bDamage = false;
         }
     }
 
@@ -74,4 +114,9 @@ public class Player : MonoBehaviour
         return hp;
     }
 
+
+    public bool IsDamage()
+    {
+        return bDamage;
+    }
 }
