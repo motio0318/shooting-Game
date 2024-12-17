@@ -76,6 +76,8 @@ public class Boss : Enemy
 
     protected override void Attack()
     {
+        if (!bAttack) return;
+
         switch(attackMode)
         {
             case AttackMode.Nomal: NomalShooting();break;

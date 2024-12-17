@@ -179,3 +179,5 @@ MonoBehaviour:
   shootTime: 0.8
   hp: 2
   moveSpeed: 2
+  damageEffectTime: 0.1
+  damageSprite: {fileID: 4326287474489854147, guid: 138040323294fd440a3a823e5d70ad01, type: 3}

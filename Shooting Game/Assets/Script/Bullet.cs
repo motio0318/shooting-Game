@@ -40,4 +40,9 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public int GetPower()
+    {
+        return power;
+    }
 }

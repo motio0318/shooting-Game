@@ -16,10 +16,19 @@ public class Enemy : MonoBehaviour
     [SerializeField, Header("移動速度")]
     private float moveSpeed;
 
+    [SerializeField, Header("ダメージエフェクトの時間")]
+    private float damageEffectTime;
+    [SerializeField, Header("ダメージ時の画像")]
+    private Sprite damageSprite;
+
     protected GameObject player;
     protected Rigidbody2D rigid;
+    protected Vector2 moveVec;
     protected float shootCount;
     protected bool bAttack;
+
+    private SpriteRenderer spriteRenderer;
+    private Sprite defaultSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +42,9 @@ public class Enemy : MonoBehaviour
         shootCount = 0;
         bAttack = false;
         rigid = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        defaultSprite = spriteRenderer.sprite;
+        moveVec = Vector2.down;
         Initialize();
     }
 
@@ -74,7 +86,8 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            hp -= 1;
+            hp -= collision.GetComponent<Bullet>().GetPower();
+            StartCoroutine(Damage());
             if (hp <= 0)
             {
                 Destroy(gameObject);
@@ -85,7 +98,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual  void Move()
     {
-        rigid.velocity = Vector2.down * moveSpeed;
+        rigid.velocity = moveVec * moveSpeed;
     }
 
     private void OnWillRenderObject()
@@ -94,6 +107,15 @@ public class Enemy : MonoBehaviour
         {
             bAttack = true;
         }
+    }
+
+    private IEnumerator Damage()
+    {
+        spriteRenderer.sprite = damageSprite;
+
+        yield return new WaitForSeconds(damageEffectTime);
+
+        spriteRenderer.sprite = defaultSprite;
     }
 
 }

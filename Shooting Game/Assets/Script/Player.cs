@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class Player : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
     private GameManager gameManager;
+    private CinemachineImpulseSource shaker;
     private float shootCount;
     private float damageTimeCount;
     private bool bDamage;
@@ -39,6 +41,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         gameManager = FindObjectOfType<GameManager>();
+        shaker = FindObjectOfType<CinemachineImpulseSource>();
         shootCount = 0;
         damageTimeCount = 0;
         bDamage = false;
@@ -71,19 +74,7 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.tag == "Bullet" || collision.gameObject.tag == "Enemy")
         {
-            if(!bDamage)
-            {
-                hp -= 1;
-                bDamage = true;
-                if (hp <= 0)
-                {
-                    Destroy(gameObject);
-                    Instantiate(deadEffect, transform.position, Quaternion.identity);
-                    gameManager.DeadEffect();
-                }
-
-            }
-
+            Hit(collision.gameObject);
         }
     }
      
@@ -101,6 +92,28 @@ public class Player : MonoBehaviour
             damageTimeCount = 0;
             spriteRenderer.enabled = true;
             bDamage = false;
+        }
+    }
+
+    private void Hit(GameObject hitObj)
+    {
+        if (bDamage) return;
+
+        if(hitObj.tag == "Bullet")
+        {
+            hp -= hitObj.GetComponent<Bullet>().GetPower();
+        }
+        else if(hitObj.tag == "Enemy")
+        {
+            hp -= 1;
+        }
+        bDamage = true;
+        if(hp <= 0)
+        {
+            Destroy(gameObject);
+            Instantiate(deadEffect, transform.position, Quaternion.identity);
+            gameManager.DeadEffect();
+            shaker.GenerateImpulse();
         }
     }
 
