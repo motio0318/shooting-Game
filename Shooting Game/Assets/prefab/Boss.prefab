@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 2192450021786810173, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -161,10 +161,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46536a4c8de4645438752e40a8017a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet:
+  bullets:
   - {fileID: 1263264981387481947, guid: b0dc2b8df1721834f956baae39271cc8, type: 3}
+  - {fileID: 5698291296536449382, guid: fe0fc8d84212f6c4aa1599266e87ad8d, type: 3}
+  - {fileID: 6323133117833652531, guid: f678ff704950b2e419a55040e79d20a4, type: 3}
+  - {fileID: 6928703111746169821, guid: 5613e6ca864852849b73b5736dc565e4, type: 3}
   shootTime: 2.5
   hp: 20
   moveSpeed: 3
+  damageEffectTime: 0.1
+  damageSprite: {fileID: -7945901444079236628, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
   limitPosY: 2.5
   normalAttackCount: 2
+  ougiBulletNum: 6
+  ougiAngle: 45
+  ougiAttackCount: 3
+  LRAttackTime: 15
+  LRShootTime: 0.2
+  LRRange: 50
+  LRSpeed: 10
+  circleBulletNum: 30
+  circleShootTime: 10
+  circleBulletTime: 0.5
